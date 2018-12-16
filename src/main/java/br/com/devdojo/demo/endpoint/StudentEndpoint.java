@@ -1,6 +1,5 @@
 package br.com.devdojo.demo.endpoint;
 
-import br.com.devdojo.demo.error.CustomErrorType;
 import br.com.devdojo.demo.error.ResourceNotFoundException;
 import br.com.devdojo.demo.model.Student;
 import br.com.devdojo.demo.repository.StudentRepository;
