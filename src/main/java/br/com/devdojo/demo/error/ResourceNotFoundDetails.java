@@ -1,81 +1,55 @@
 package br.com.devdojo.demo.error;
 
-public class ResourceNotFoundDetails {
-    private String title;
-    private int status;
-    private String detail;
-    private long timestamp;
-    private String developerMessage;
+public class ResourceNotFoundDetails extends ErrorDetail {
 
-    private ResourceNotFoundDetails(String title, int status, String detail, long timestamp, String developerMessage) {
-        this.title = title;
-        this.status = status;
-        this.detail = detail;
-        this.timestamp = timestamp;
-        this.developerMessage = developerMessage;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public String getDeveloperMessage() {
-        return developerMessage;
-    }
-
-    public static final class ResourceNotFoundDetailsBuilder {
+    public static final class Builder {
         private String title;
         private int status;
         private String detail;
         private long timestamp;
         private String developerMessage;
 
-        private ResourceNotFoundDetailsBuilder() {
+        private Builder() {
         }
 
-        public static ResourceNotFoundDetailsBuilder newBuilder() {
-            return new ResourceNotFoundDetailsBuilder();
+        public static Builder newBuilder() {
+            return new Builder();
         }
 
-        public ResourceNotFoundDetailsBuilder title(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        public ResourceNotFoundDetailsBuilder status(int status) {
+        public Builder status(int status) {
             this.status = status;
             return this;
         }
 
-        public ResourceNotFoundDetailsBuilder detail(String detail) {
+        public Builder detail(String detail) {
             this.detail = detail;
             return this;
         }
 
-        public ResourceNotFoundDetailsBuilder timestamp(long timestamp) {
+        public Builder timestamp(long timestamp) {
             this.timestamp = timestamp;
             return this;
         }
 
-        public ResourceNotFoundDetailsBuilder developerMessage(String developerMessage) {
+        public Builder developerMessage(String developerMessage) {
             this.developerMessage = developerMessage;
             return this;
         }
 
         public ResourceNotFoundDetails build() {
-            return new ResourceNotFoundDetails(title, status, detail, timestamp, developerMessage);
+            ResourceNotFoundDetails resourceNotFoundDetails = new ResourceNotFoundDetails();
+            resourceNotFoundDetails.setDeveloperMessage(this.developerMessage);
+            resourceNotFoundDetails.setTitle(this.title);
+            resourceNotFoundDetails.setDetail(this.detail);
+            resourceNotFoundDetails.setTimestamp(this.timestamp);
+            resourceNotFoundDetails.setStatus(this.status);
+
+            return resourceNotFoundDetails;
         }
     }
 }
