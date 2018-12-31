@@ -18,7 +18,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("students")
+@RequestMapping("/v1")
 public class StudentEndpoint {
 
     private final StudentRepository studentRepository;
@@ -28,17 +28,17 @@ public class StudentEndpoint {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping
+    @GetMapping("/protected/students")
     public ResponseEntity<?> findAll(Pageable pageable) {
         return new ResponseEntity<>(studentRepository.findAll(pageable), HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByOrderByNameDesc")
+    @GetMapping("/protected/students/findAllByOrderByNameDesc")
     public ResponseEntity<?> findAllByOrderByNameDesc(Pageable pageable) {
         return new ResponseEntity<>(studentRepository.findAllByOrderByNameDesc(pageable), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/protected/students/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
 
         verifyIfStudentsExistis(id);
@@ -47,19 +47,18 @@ public class StudentEndpoint {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @GetMapping("/findByName/{name}")
+    @GetMapping("/protected/students/findByName/{name}")
     public ResponseEntity<?> findStudentByName(@PathVariable("name") String name) {
         return new ResponseEntity<>(studentRepository.findByNameIgnoreCaseContaining(name), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/students")
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> save(@Valid @RequestBody Student student) {
         return new ResponseEntity<>(studentRepository.save(student), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/admin/students/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         verifyIfStudentsExistis(id);
 
@@ -67,7 +66,7 @@ public class StudentEndpoint {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/admin/students")
     public ResponseEntity<?> update(@RequestBody Student student) {
         verifyIfStudentsExistis(student.getId());
 
