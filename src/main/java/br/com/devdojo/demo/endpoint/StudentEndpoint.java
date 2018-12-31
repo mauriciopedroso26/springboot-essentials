@@ -30,6 +30,11 @@ public class StudentEndpoint {
         return new ResponseEntity<>(studentRepository.findAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/findAllByOrderByNameDesc")
+    public ResponseEntity<?> findAllByOrderByNameDesc(Pageable pageable) {
+        return new ResponseEntity<>(studentRepository.findAllByOrderByNameDesc(pageable), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
         verifyIfStudentsExistis(id);
